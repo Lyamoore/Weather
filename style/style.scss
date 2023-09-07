@@ -32,9 +32,64 @@ body {
 
     &__change {
         font-size: 30px;
+        width: 250px;
+
+        &__title {
+            text-align: end;
+        }
 
         &__search {
-            display: none;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid rgba(0, 0, 0, 0.349);
+            transition: 1s;
+            border-radius: 25px;
+
+            &:hover {
+                border-color: #ffffff9f;
+
+                .header__change__search__input {
+                    color: rgb(255, 255, 255);
+                }
+            }
+
+            &__input {
+                transition: 1s;
+                width: 100%;
+                outline: none;
+                background: transparent;
+                height: 100%;
+                color: rgba(0, 0, 0, 0.76);
+                font-size: 20px;
+                padding: 15px;
+                border: none;
+
+                &::placeholder {
+                    color: rgba(255, 255, 255, 0.507);
+                }
+            }
+
+            &__send {
+                width: 50px;
+                outline: none;
+                background: transparent;
+                border: none;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &_icon {
+                    fill: rgba(0, 0, 0, 0.507);
+                    transition: 0.5s;
+
+                    &:hover {
+                        fill: rgb(255, 255, 255);
+                    }
+                }
+            }
         }
     }
 }

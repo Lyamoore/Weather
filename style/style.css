@@ -31,9 +31,59 @@ body {
 }
 .header__change {
   font-size: 30px;
+  width: 250px;
+}
+.header__change__title {
+  text-align: end;
 }
 .header__change__search {
-  display: none;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid rgba(0, 0, 0, 0.349);
+  transition: 1s;
+  border-radius: 25px;
+}
+.header__change__search:hover {
+  border-color: rgba(255, 255, 255, 0.6235294118);
+}
+.header__change__search:hover .header__change__search__input {
+  color: rgb(255, 255, 255);
+}
+.header__change__search__input {
+  transition: 1s;
+  width: 100%;
+  outline: none;
+  background: transparent;
+  height: 100%;
+  color: rgba(0, 0, 0, 0.76);
+  font-size: 20px;
+  padding: 15px;
+  border: none;
+}
+.header__change__search__input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.507);
+}
+.header__change__search__input::placeholder {
+  color: rgba(255, 255, 255, 0.507);
+}
+.header__change__search__send {
+  width: 50px;
+  outline: none;
+  background: transparent;
+  border: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header__change__search__send_icon {
+  fill: rgba(0, 0, 0, 0.507);
+  transition: 0.5s;
+}
+.header__change__search__send_icon:hover {
+  fill: rgb(255, 255, 255);
 }
 
 .main {
