@@ -34,10 +34,6 @@ body {
         font-size: 30px;
         width: 250px;
 
-        &__title {
-            text-align: end;
-        }
-
         &__search {
             height: 50px;
             display: flex;
@@ -114,8 +110,10 @@ body {
     justify-content: center;
     grid-area: 3 / 1 / span 1 / span 1;
 
+    padding-top: 20px;
+    padding-bottom: 20px;
+
     &__info {
-        // background-color: rgba(55, 0, 255, 0.438);
         height: 100%;
         width: 350px;
         position: relative;

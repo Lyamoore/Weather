@@ -5,8 +5,6 @@ const $blockWindInfo = document.querySelector(".footer__info__wind");
 const $blockPressureInfo = document.querySelector(".footer__info__pressure");
 const $blockHumidityInfo = document.querySelector(".footer__info__humidity");
 
-// const $blockChange = document.querySelector(".header__change");
-// const $blockChangeTitle = document.querySelector(".header__change__title");
 const $blockChangeSearch = document.querySelector(".header__change__search");
 const $blockChangeInput = document.querySelector(
   ".header__change__search__input"
@@ -14,16 +12,6 @@ const $blockChangeInput = document.querySelector(
 const $blockChangeBtn = document.querySelector(".header__change__search__send");
 
 let city = "London";
-
-// async function getWeather(city) {
-//   let response = await fetch(
-//     `http://api.weatherapi.com/v1/current.json?key=5cf81997e51e495cb8184339230509&q=${city}&aqi=no`
-//   );
-
-//   let jsonRespone = await response.json();
-
-//   writeInfo(jsonRespone);
-// }
 
 async function getWeather(city) {
   const data = await getData(city);
@@ -76,22 +64,40 @@ setInterval(getWeather(city), 10 * 60 * 1000);
 $blockChangeBtn.addEventListener("click", searchCityClick);
 $blockChangeInput.addEventListener("keyup", searchCityBtn);
 
-function searchCityClick() {
+async function searchCityClick() {
   const newCity = $blockChangeInput.value;
 
-  clearInfo();
-  getWeather(newCity);
-  $blockChangeInput.value = "";
+  if (await checkCity(newCity)) {
+    clearInfo();
+    getWeather(newCity);
+
+    $blockChangeInput.value = "";
+  } else {
+    $blockChangeInput.value = "";
+  }
 }
 
-function searchCityBtn(e) {
+async function searchCityBtn(e) {
   if (e.key == "Enter") {
     const newCity = e.target.value;
 
-    clearInfo();
-    getWeather(newCity);
-    e.target.value = "";
+    if (await checkCity(newCity)) {
+      clearInfo();
+      getWeather(newCity);
+
+      e.target.value = "";
+    } else {
+      e.target.value = "";
+    }
   }
+}
+
+async function checkCity(city) {
+  const response = await fetch(
+    `http://api.weatherapi.com/v1/current.json?key=5cf81997e51e495cb8184339230509&q=${city}&aqi=no`
+  );
+
+  return response.ok ? 1 : 0;
 }
 
 function clearInfo() {
@@ -113,18 +119,3 @@ function washField(e) {
     e.target.value = value.replace(/[^A-Za-z]/g, "");
   }
 }
-
-// ИСЧЕЗНОВЕНИЕ ЧЕНДЖ СИТИ
-
-// function changeOn() {
-//   $blockChangeTitle.style.display = "none";
-//   $blockChangeSearch.style.display = "block";
-// }
-
-// function changeOver() {
-//   $blockChangeTitle.style.display = "block";
-//   $blockChangeSearch.style.display = "none";
-// }
-
-// $blockChangeTitle.addEventListener("mouseover", changeOn);
-// $blockChangeTitle.addEventListener("mouseout", changeOver);
