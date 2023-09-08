@@ -26,17 +26,17 @@ let city = "London";
 // }
 
 async function getWeather(city) {
-  let data = await getData(city);
+  const data = await getData(city);
 
   writeInfo(data);
 }
 
 async function getData(city) {
-  let response = await fetch(
+  const response = await fetch(
     `http://api.weatherapi.com/v1/current.json?key=5cf81997e51e495cb8184339230509&q=${city}&aqi=no`
   );
 
-  let jsonRespone = await response.json();
+  const jsonRespone = await response.json();
   return jsonRespone;
 }
 
@@ -77,7 +77,7 @@ $blockChangeBtn.addEventListener("click", searchCityClick);
 $blockChangeInput.addEventListener("keyup", searchCityBtn);
 
 function searchCityClick() {
-  let newCity = $blockChangeInput.value;
+  const newCity = $blockChangeInput.value;
 
   clearInfo();
   getWeather(newCity);
@@ -86,7 +86,7 @@ function searchCityClick() {
 
 function searchCityBtn(e) {
   if (e.key == "Enter") {
-    let newCity = e.target.value;
+    const newCity = e.target.value;
 
     clearInfo();
     getWeather(newCity);
@@ -99,6 +99,19 @@ function clearInfo() {
   $blockWindInfo.innerHTML = "";
   $blockPressureInfo.innerHTML = "";
   $blockHumidityInfo.innerHTML = "";
+}
+
+// ЗАПРЕЩАЮ ПИСАТЬ НА РУССКОМ
+
+$blockChangeInput.addEventListener("input", washField);
+
+function washField(e) {
+  const value = e.target.value;
+  const regex = /^[A-Za-z]+$/;
+
+  if (!regex.test(value)) {
+    e.target.value = value.replace(/[^A-Za-z]/g, "");
+  }
 }
 
 // ИСЧЕЗНОВЕНИЕ ЧЕНДЖ СИТИ
