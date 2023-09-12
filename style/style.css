@@ -142,11 +142,10 @@ body {
   -moz-column-gap: 100px;
        column-gap: 100px;
   display: flex;
-  justify-content: flex-start;
-  border: 1px solid red;
+  justify-content: center;
+  display: none;
 }
 .footer__info__field {
-  border: 1px solid blue;
   height: 100%;
   width: 350px;
   position: relative;
@@ -170,5 +169,5 @@ body {
   color: rgb(255, 255, 255);
 }
 .active-block {
-  display: block;
+  display: flex;
 }/*# sourceMappingURL=style.css.map */

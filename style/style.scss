@@ -153,12 +153,10 @@ body {
         height: 100%;
         column-gap: 100px;
         display: flex;
-        justify-content: flex-start;
-
-        border: 1px solid red;
+        justify-content: center;
+        display: none;
 
         &__field {
-            border: 1px solid blue;
             height: 100%;
             width: 350px;
             position: relative;
@@ -188,6 +186,6 @@ body {
     }
 
     &-block {
-        display: block;
+        display: flex;
     }
 }

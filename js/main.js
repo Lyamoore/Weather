@@ -4,13 +4,8 @@ let city = "London";
 let intervalId;
 
 const $blockMainInfo = document.querySelector(".main__info");
-const $blockWindInfo = document.querySelector(".footer__info__field__wind");
-const $blockPressureInfo = document.querySelector(
-  ".footer__info__field__pressure"
-);
-const $blockHumidityInfo = document.querySelector(
-  ".footer__info__field__humidity"
-);
+const $blockAdditMainInfo = document.querySelector("#Main");
+const $blockAdditAstroInfo = document.querySelector("#Astro");
 
 // СТРОКА ПОИСКА
 
@@ -26,6 +21,7 @@ const $blockChangeWarn = document.querySelector(
 // МЕНЮ
 
 const $blockMenu = document.querySelector(".footer__menu");
+const $blocksMenuInfo = document.querySelectorAll(".footer__info");
 
 // ОБНОВЛЕНИЕ ДАННЫХ И ПЕРЕРИСОВКА
 
@@ -46,7 +42,7 @@ async function getWeather(city) {
 
 async function getData(city) {
   const response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?key=5cf81997e51e495cb8184339230509&q=${city}&aqi=no`
+    `http://api.weatherapi.com/v1/forecast.json?key=5cf81997e51e495cb8184339230509&q=${city}&days=1&aqi=no&alerts=no`
   );
 
   const jsonRespone = await response.json();
@@ -55,7 +51,8 @@ async function getData(city) {
 
 function writeInfo(data) {
   writeMainInfo(data);
-  writeAdditInfo(data);
+  writeAdditMainInfo(data);
+  writeAdditAstroInfo(data);
 }
 
 function writeMainInfo(data) {
@@ -72,21 +69,72 @@ function writeMainInfo(data) {
   $blockMainInfo.insertAdjacentHTML("beforeend", mainHtml);
 }
 
-function writeAdditInfo(data) {
+function writeAdditMainInfo(data) {
   const wind = `${data.current.wind_kph} kph ${data.current.wind_dir}`;
   const pressure = `${data.current.pressure_mb} mb`;
   const humidity = data.current.humidity;
 
-  $blockWindInfo.insertAdjacentHTML("beforeend", wind);
-  $blockPressureInfo.insertAdjacentHTML("beforeend", pressure);
-  $blockHumidityInfo.insertAdjacentHTML("beforeend", humidity);
+  const html = `<div class="footer__info__field">
+  <div class="footer__info__field__img">
+    <img
+      src="img/icon-wind.png"
+      class="footer__info__field__img_mod"
+      alt="wind"
+    />
+  </div>
+  <div class="footer__info__field__wind">${wind}</div>
+</div>
+<div class="footer__info__field">
+  <div class="footer__info__field__img">
+    <img
+      src="img/icon-pressure.png"
+      class="footer__info__field__img_mod"
+      alt="pressure"
+    />
+  </div>
+  <div class="footer__info__field__pressure">${pressure}</div>
+</div>
+<div class="footer__info__field">
+  <div class="footer__info__field__img">
+    <img
+      src="img/icon-humidity.png"
+      class="footer__info__field__img_mod"
+      alt="humidity"
+    />
+  </div>
+  <div class="footer__info__field__humidity">${humidity}</div>
+</div>`;
+
+  $blockAdditMainInfo.insertAdjacentHTML("beforeend", html);
+}
+
+function writeAdditAstroInfo(data) {
+  const astro = data.forecast.forecastday[0].astro;
+
+  const sun = `${astro.sunrise} — ${astro.sunset}`;
+  const moon = `${astro.moonrise} — ${astro.moonset}`;
+  const phase = astro.moon_phase;
+
+  const html = `<div class="footer__info__field">
+  <div class="footer__info__field__img">Sun</div>
+  <div class="footer__info__field__des">${sun}</div>
+</div>
+<div class="footer__info__field">
+  <div class="footer__info__field__img">Moon</div>
+  <div class="footer__info__field__des">${moon}</div>
+</div>
+<div class="footer__info__field">
+  <div class="footer__info__field__img">Phase</div>
+  <div class="footer__info__field__des">${phase}</div>
+</div>`;
+
+  $blockAdditAstroInfo.insertAdjacentHTML("beforeend", html);
 }
 
 function clearInfo() {
   $blockMainInfo.innerHTML = "";
-  $blockWindInfo.innerHTML = "";
-  $blockPressureInfo.innerHTML = "";
-  $blockHumidityInfo.innerHTML = "";
+  $blockAdditMainInfo.innerHTML = "";
+  $blockAdditAstroInfo.innerHTML = "";
 }
 
 // СМЕНА ГОРОДА
@@ -155,13 +203,27 @@ function washField(e) {
 $blockMenu.addEventListener("click", switchMenu);
 
 function switchMenu(e) {
-  const id = e.target.textContent;
-  const elem = document.querySelector(`#${id}`);
+  const id = e.target.dataset.id;
 
-  elem.style.display = "none";
+  $blocksMenuInfo.forEach((item) => {
+    if (item.id === id) {
+      item.classList.add("active-block");
+    } else {
+      item.classList.remove("active-block");
+    }
+  });
 
-  console.log(e.target.textContent);
+  for (let item of this.children) {
+    if (item === e.target) {
+      item.classList.add("active-text");
+    } else {
+      item.classList.remove("active-text");
+    }
+  }
 }
+
+document.querySelector('[data-id="Main"]').classList.add("active-text");
+document.querySelector("#Main").classList.add("active-block");
 
 // ЗАПУСК
 
