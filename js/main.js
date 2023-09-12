@@ -174,7 +174,7 @@ async function searchCityBtn(e) {
 
 async function checkCity(city) {
   const response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?key=5cf81997e51e495cb8184339230509&q=${city}&aqi=no`
+    `https://api.weatherapi.com/v1/current.json?key=5cf81997e51e495cb8184339230509&q=${city}&aqi=no`
   );
 
   return response.ok ? 1 : 0;
