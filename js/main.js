@@ -64,7 +64,7 @@ function writeMainInfo(data) {
   const condition = data.current.condition.text;
 
   const mainHtml = `<div>${temperature}</div>
-    <div>${condition}</div>`;
+    <div class="main__info__condition">${condition}</div>`;
 
   $blockMainInfo.insertAdjacentHTML("beforeend", mainHtml);
 }
